@@ -1,0 +1,21 @@
+# Dependency directories
+node_modules/
+
+# Production build outputs
+backend/dist/
+frontend/dist/
+
+# Environment files containing API keys and OAuth secrets
+.env
+backend/.env
+.env.local
+.env.production
+.env.development
+
+# System and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.suo
+*.swp
