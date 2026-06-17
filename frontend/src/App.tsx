@@ -17,8 +17,11 @@ export default function App() {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   // Set API base URL (VITE_API_URL can be set during Vercel deployment)
-  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
-
+  // Dynamically resolve local network host (e.g., accessed via phone on http://<laptop-ip>:3000)
+  const API_URL = import.meta.env.VITE_API_URL || 
+  (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://localhost:3001'
+    : 'https://repeatless.onrender.com');
 
   // Listen for Google OAuth successful messages
   useEffect(() => {

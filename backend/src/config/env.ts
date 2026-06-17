@@ -22,8 +22,14 @@ export const config = {
 const missingKeys: string[] = [];
 const placeholders = ['placeholder_id', 'placeholder_secret', 'placeholder_supabase_url', 'placeholder_supabase_anon_key', 'placeholder_supabase_service_role_key', 'placeholder_db_url', 'placeholder_gemini_key', 'placeholder_nvidia_key'];
 
+function isPlaceholder(value: string): boolean {
+  if (!value) return true;
+  const val = value.toLowerCase().trim();
+  return placeholders.includes(val) || val.startsWith('placeholder_');
+}
+
 for (const [key, value] of Object.entries(config)) {
-  if (!value || placeholders.includes(value)) {
+  if (isPlaceholder(value)) {
     missingKeys.push(key);
   }
 }
@@ -35,9 +41,9 @@ if (missingKeys.length > 0) {
 export function isConfigReady(): boolean {
   // Check if credentials are set to something real
   return (
-    config.GOOGLE_CLIENT_ID !== '' && config.GOOGLE_CLIENT_ID !== 'placeholder_id' &&
-    config.SUPABASE_URL !== '' && config.SUPABASE_URL !== 'placeholder_supabase_url' &&
-    config.DATABASE_URL !== '' && config.DATABASE_URL !== 'placeholder_db_url' &&
-    config.GEMINI_API_KEY !== '' && config.GEMINI_API_KEY !== 'placeholder_gemini_key'
+    config.GOOGLE_CLIENT_ID !== '' && !isPlaceholder(config.GOOGLE_CLIENT_ID) &&
+    config.SUPABASE_URL !== '' && !isPlaceholder(config.SUPABASE_URL) &&
+    config.DATABASE_URL !== '' && !isPlaceholder(config.DATABASE_URL) &&
+    config.GEMINI_API_KEY !== '' && !isPlaceholder(config.GEMINI_API_KEY)
   );
 }

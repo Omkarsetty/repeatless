@@ -4,13 +4,17 @@ import { config, isConfigReady } from '../config/env';
 
 // Initialize Gemini SDK
 let genAI: GoogleGenerativeAI | null = null;
-if (config.GEMINI_API_KEY && config.GEMINI_API_KEY !== 'placeholder_gemini_key') {
+if (config.GEMINI_API_KEY && 
+    config.GEMINI_API_KEY !== 'placeholder_gemini_key' && 
+    !config.GEMINI_API_KEY.toLowerCase().startsWith('placeholder_')) {
   genAI = new GoogleGenerativeAI(config.GEMINI_API_KEY);
 }
 
 // Initialize NVIDIA NIM OpenAI client
 let nvidiaClient: OpenAI | null = null;
-if (config.NVIDIA_API_KEY && config.NVIDIA_API_KEY !== 'placeholder_nvidia_key') {
+if (config.NVIDIA_API_KEY && 
+    config.NVIDIA_API_KEY !== 'placeholder_nvidia_key' && 
+    !config.NVIDIA_API_KEY.toLowerCase().startsWith('placeholder_')) {
   nvidiaClient = new OpenAI({
     apiKey: config.NVIDIA_API_KEY,
     baseURL: 'https://integrate.api.nvidia.com/v1',

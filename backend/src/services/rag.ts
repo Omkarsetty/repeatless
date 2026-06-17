@@ -4,7 +4,9 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { config } from '../config/env';
 
 let genAI: GoogleGenerativeAI | null = null;
-if (config.GEMINI_API_KEY && config.GEMINI_API_KEY !== 'placeholder_gemini_key') {
+if (config.GEMINI_API_KEY && 
+    config.GEMINI_API_KEY !== 'placeholder_gemini_key' && 
+    !config.GEMINI_API_KEY.toLowerCase().startsWith('placeholder_')) {
   genAI = new GoogleGenerativeAI(config.GEMINI_API_KEY);
 }
 

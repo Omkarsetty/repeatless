@@ -1,3 +1,6 @@
+// Support local proxies and college/corporate firewalls by bypassing SSL verification in local dev
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
 import express from 'express';
 import cors from 'cors';
 import { config, isConfigReady } from './config/env';
