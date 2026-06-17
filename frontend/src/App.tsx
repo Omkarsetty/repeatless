@@ -16,8 +16,9 @@ export default function App() {
   const [stats, setStats] = useState<any>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  // Set API base URL
-  const API_URL = 'http://localhost:3001';
+  // Set API base URL (VITE_API_URL can be set during Vercel deployment)
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+
 
   // Listen for Google OAuth successful messages
   useEffect(() => {
